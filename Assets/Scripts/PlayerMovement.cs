@@ -11,8 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float jumpHeight = 14f;
     [SerializeField] private float runSpeed = 7f;
-
-    [SerializeField] private LayerMask jumpableGround;
+     [SerializeField] private LayerMask jumpableGround;
     
     private float dirx = 0f;
 
@@ -42,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //vector 2 as we are 2dimensional 
             playerBox.velocity = new Vector2(playerBox.velocity.x, jumpHeight);
+            
         }
 
         UpdateAnim();
