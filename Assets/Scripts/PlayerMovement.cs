@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+
+
 
 public class PlayerMovement : MonoBehaviour
 {
     //Configurations
     //This enumerator lets the game engine know what our player is doing in the game. This allows us to more easily set animations
-    private enum MOVESTATE {idle, running, jumping, falling }
-    
+    private enum MOVESTATE {idle, running, jumping, falling}
+
+    Vector2 moveInput;
 
     [SerializeField] private float jumpHeight = 14f;
     [SerializeField] private float runSpeed = 7f;
-     [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private LayerMask jumpableGround;
     
     private float dirx = 0f;
 
@@ -19,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D coll;
     private SpriteRenderer sprite;
     private Animator playerAnim;
-
+    private Vector2 x_playerMovement, y_playerMovement;
 
 
     // Start is called before the first frame update
@@ -34,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dirx = Input.GetAxisRaw("Horizontal");
-        playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);
+        //playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);
+        Run();
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -47,6 +52,18 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnim();
     }
 
+    void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+        Debug.Log(moveInput);
+    }
+
+    void Run()
+    {
+        x_playerMovement = new Vector2(moveInput.x * runSpeed, playerBox.velocity.y);
+        playerBox.velocity = x_playerMovement; 
+    }
+
     /// <summary>
     /// Here we set up the Sprite animation direction and usage. dependent on user iunput.
     /// The enum is called to check the state of the player wether they are running jumping falling or standing still
@@ -55,12 +72,12 @@ public class PlayerMovement : MonoBehaviour
     {
         MOVESTATE state;
 
-        if (dirx > 0f)
+        if (playerBox.velocity.x > 0f)
         {
             state = MOVESTATE.running;
             sprite.flipX = false;
         }
-        else if (dirx < 0f)
+        else if (playerBox.velocity.x < 0f)
         {
             state = MOVESTATE.running;
             sprite.flipX = true;
@@ -71,11 +88,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //the below block has higher priority than running so that we don't get "running in the air"
-        if (playerBox.velocity.y > .1f)
+        if (playerBox.velocity.y > .1f && !IsGrounded())
         {
             state = MOVESTATE.jumping;
         }
-        else if (playerBox.velocity.y < -.1f)
+        else if (playerBox.velocity.y < -.1f && !IsGrounded())
         {
             state = MOVESTATE.falling;
         }
