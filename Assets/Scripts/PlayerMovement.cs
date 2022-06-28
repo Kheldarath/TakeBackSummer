@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Configurations
     //This enumerator lets the game engine know what our player is doing in the game. This allows us to more easily set animations
-    private enum MOVESTATE {idle, running, jumping, falling}
+    private enum MOVESTATE {idle, running, jumping, falling, climbing}
 
     Vector2 moveInput;
 
@@ -18,26 +18,35 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 7f;
     [SerializeField] private float climbSpeed = 5f;
     [SerializeField] private LayerMask jumpableGround;
-    
-    private float dirx = 0f;
 
     private Rigidbody2D playerBox;
     private Collider2D coll;
     private SpriteRenderer sprite;
     private Animator playerAnim;
+
+
+    private float dirx = 0f;
+    private bool isClimbing = false;    
     private Vector2 x_playerMovement, y_playerMovement;
+    private float gravityAtStart;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         playerBox = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
         sprite = GetComponent<SpriteRenderer>();
+    }
+    void Start()
+    {
+        //playerBox = GetComponent<Rigidbody2D>();
+        //coll = GetComponent<Collider2D>();
+        //sprite = GetComponent<SpriteRenderer>();
         playerAnim = GetComponent<Animator>();
+        gravityAtStart = playerBox.gravityScale;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         //playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);        
@@ -67,11 +76,17 @@ public class PlayerMovement : MonoBehaviour
 
     void ClimbLadder()
     {
-        if (!coll.IsTouchingLayers(LayerMask.GetMask("Ladder"))) { return; }
-             y_playerMovement = new Vector2(playerBox.velocity.x, moveInput.y * climbSpeed);
-            playerBox.velocity = y_playerMovement;
-        
-       
+        if (!coll.IsTouchingLayers(LayerMask.GetMask("Ladder"))) 
+        {
+            playerBox.gravityScale = gravityAtStart;
+            isClimbing = false;
+            return; 
+        }
+
+        y_playerMovement = new Vector2(playerBox.velocity.x, moveInput.y * climbSpeed);
+        playerBox.velocity = y_playerMovement;
+        playerBox.gravityScale = 0f;
+        isClimbing = true;
     }
     void Run()
     {
@@ -110,6 +125,11 @@ public class PlayerMovement : MonoBehaviour
         else if (playerBox.velocity.y < -.1f && !IsGrounded())
         {
             state = MOVESTATE.falling;
+        }
+
+        if (isClimbing)
+        {
+            state = MOVESTATE.climbing;
         }
         //sets the state to the correct number so that the animator controller can pick up the change. ENUM's can be converted to int values using the (int)ENUM argument. so that each enum value gets converted to a digit, starting at 0. (like an array)
         playerAnim.SetInteger("moveState", (int)state);
