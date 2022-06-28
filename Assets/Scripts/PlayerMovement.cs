@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float jumpHeight = 14f;
     [SerializeField] private float runSpeed = 7f;
+    [SerializeField] private float climbSpeed = 5f;
     [SerializeField] private LayerMask jumpableGround;
     
     private float dirx = 0f;
@@ -39,16 +40,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);
+        //playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);        
         Run();
-
-        if (Input.GetButtonDown("Jump") && IsGrounded())
-        {
-            //vector 2 as we are 2dimensional 
-            playerBox.velocity = new Vector2(playerBox.velocity.x, jumpHeight);
-            
-        }
-
+        ClimbLadder();
         UpdateAnim();
     }
 
@@ -57,7 +51,28 @@ public class PlayerMovement : MonoBehaviour
         moveInput = value.Get<Vector2>();
         Debug.Log(moveInput);
     }
+    
+    void OnJump(InputValue value)
+    {
+        //if(!coll.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
 
+
+        if (value.isPressed && IsGrounded())
+        {
+            //vector 2 as we are 2dimensional 
+            playerBox.velocity += new Vector2(playerBox.velocity.x, jumpHeight);
+
+        }
+    }
+
+    void ClimbLadder()
+    {
+        if (!coll.IsTouchingLayers(LayerMask.GetMask("Ladder"))) { return; }
+             y_playerMovement = new Vector2(playerBox.velocity.x, moveInput.y * climbSpeed);
+            playerBox.velocity = y_playerMovement;
+        
+       
+    }
     void Run()
     {
         x_playerMovement = new Vector2(moveInput.x * runSpeed, playerBox.velocity.y);

@@ -13,7 +13,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Ladder
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Terrain
     uniqueID: 2433241403
+    locked: 0
+  - name: Doodads
+    uniqueID: 1489572979
     locked: 0

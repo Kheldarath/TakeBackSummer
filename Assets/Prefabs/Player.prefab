@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2539341859417305068}
   - component: {fileID: 2539341859417305075}
   - component: {fileID: 2539341859417305070}
+  - component: {fileID: 1848179312}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -104,11 +105,11 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 0.5
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &2539341859417305069
 CapsuleCollider2D:
@@ -158,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4671542a8041a4c8b3cc6cbc241189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 10
+  jumpHeight: 12
   runSpeed: 8
   jumpableGround:
     serializedVersion: 2
@@ -176,3 +177,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreline: {fileID: 0}
+--- !u!114 &1848179312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539341859417305078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 0fa3a62e5aa41824989042625b961df7, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
