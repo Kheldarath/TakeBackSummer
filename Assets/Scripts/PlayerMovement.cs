@@ -17,10 +17,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 14f;
     [SerializeField] private float runSpeed = 7f;
     [SerializeField] private float climbSpeed = 5f;
-    [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private float groundCheckDistance; //this 1.415 in inspector.
+    [SerializeField] private LayerMask theGround;
+    
 
     private Rigidbody2D playerBox;
-    private Collider2D coll;
+    private CapsuleCollider2D coll;
+    private BoxCollider2D feet;
     private SpriteRenderer sprite;
     private Animator playerAnim;
 
@@ -34,7 +37,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerBox = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
+        coll = GetComponent<CapsuleCollider2D>();
+        feet = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
     }
     void Start()
@@ -44,13 +48,14 @@ public class PlayerMovement : MonoBehaviour
         //sprite = GetComponent<SpriteRenderer>();
         playerAnim = GetComponent<Animator>();
         gravityAtStart = playerBox.gravityScale;
+        
     }
 
     
     void Update()
     {
         //playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);        
-        Run();
+        Run();        
         ClimbLadder();
         UpdateAnim();
     }
@@ -141,6 +146,31 @@ public class PlayerMovement : MonoBehaviour
     /// <returns></returns>
    private bool IsGrounded()
     {
-       return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
-    } 
-}
+        Vector2 checkpos = transform.position - new Vector3(0f, feet.size.y / 2);
+        return Physics2D.Raycast(checkpos, Vector2.down, groundCheckDistance, theGround);        
+    }
+
+    /* -------------The below is a beginning for if I want to re-implement slopes. At the moment this method is clunky and abrasive ----*/
+
+    //private void SlopeCheck()
+    //{
+    //    Vector2 checkPos = transform.position - new Vector3(0f, feet.size.y / 2);
+    //    SlopeCheckVertical(checkPos);
+    //}
+
+    //private void SlopeCheckHorizontal(Vector2 checkpos)
+    //{
+    //    RaycastHit2D hitRight = Physics2D.Raycast(checkpos, Vector2.right);
+    //    RaycastHit2D hitLeft = Physics2D.Raycast(checkpos, Vector2.left);
+    //}
+
+    //private void SlopeCheckVertical(Vector2 checkpos)
+    //{
+    //    RaycastHit2D hit = Physics2D.Raycast(checkpos, Vector2.down, groundCheckDistance, theGround);
+
+    //    if (hit)
+    //    {
+    //        Debug.DrawRay(hit.point, hit.normal, Color.red);
+    //    }
+    //}
+ }
