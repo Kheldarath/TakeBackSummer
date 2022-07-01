@@ -14,15 +14,26 @@ public class Player : MonoBehaviour
 
     //TODO implement "weapons" or rather the spray gun thingy.
 
-    // Start is called before the first frame update
+    public bool isAlive = true;
+
+
+
     void Start()
     {
-        
+        isAlive = true;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (!isAlive)
+        {
+            killPlayer();
+        }
+    }
+
+    public void killPlayer()
+    {
+        isAlive = false;
     }
 }

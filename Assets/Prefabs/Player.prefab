@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 2539341859417305073}
   - component: {fileID: 2539341859417305079}
   - component: {fileID: 2539341859417305069}
+  - component: {fileID: 1714834122283856584}
   - component: {fileID: 2539341859417305068}
+  - component: {fileID: 2262655270991214475}
   - component: {fileID: 2539341859417305075}
   - component: {fileID: 2539341859417305070}
   - component: {fileID: 1848179312}
@@ -124,9 +126,35 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04209205, y: -0.24701989}
-  m_Size: {x: 1.0079772, y: 1.411816}
+  m_Offset: {x: 0.043114983, y: -0.26376852}
+  m_Size: {x: 1.2007027, y: 1.4453132}
   m_Direction: 0
+--- !u!61 &1714834122283856584
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539341859417305078}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.020151302, y: -0.94488484}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9280853, y: 0.113337874}
+  m_EdgeRadius: 0
 --- !u!95 &2539341859417305068
 Animator:
   serializedVersion: 4
@@ -147,6 +175,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2262655270991214475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539341859417305078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6945e8a06a21d54295b96c1e0525dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlive: 1
 --- !u!114 &2539341859417305075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 12
   runSpeed: 8
+  climbSpeed: 5
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64

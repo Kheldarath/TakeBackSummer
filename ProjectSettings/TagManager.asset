@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Collectable
   - WaterHazard
+  - Enemy
+  - PatrolTrigger
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - Ladder
   - Player
   - Background
-  - 
-  - 
+  - Bouncing
+  - Enemies
   - 
   - 
   - 
@@ -51,6 +53,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemies
+    uniqueID: 532850549
+    locked: 0
+  - name: Player
+    uniqueID: 2815192965
     locked: 0
   - name: Water
     uniqueID: 388904723

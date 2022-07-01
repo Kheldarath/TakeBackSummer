@@ -19,22 +19,26 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float climbSpeed = 5f;
     [SerializeField] private LayerMask jumpableGround;
 
+    private Player player;
     private Rigidbody2D playerBox;
-    private Collider2D coll;
+    private CapsuleCollider2D myBody;
+    private BoxCollider2D myFeet;
     private SpriteRenderer sprite;
     private Animator playerAnim;
 
+    private Vector2 x_playerMovement, y_playerMovement;
 
     private float dirx = 0f;
     private bool isClimbing = false;    
-    private Vector2 x_playerMovement, y_playerMovement;
     private float gravityAtStart;
 
 
     private void Awake()
     {
+        player = GetComponent<Player>();
         playerBox = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
+        myBody = GetComponent<CapsuleCollider2D>();
+        myFeet = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
     }
     void Start()
@@ -49,10 +53,12 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-        //playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);        
-        Run();
-        ClimbLadder();
-        UpdateAnim();
+        if (player.isAlive)
+        {//playerBox.velocity = new Vector2(dirx * runSpeed, playerBox.velocity.y);        
+            Run();
+            ClimbLadder();
+            UpdateAnim();
+        }
     }
 
     void OnMove(InputValue value)
@@ -64,19 +70,20 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         //if(!coll.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
-
-
-        if (value.isPressed && IsGrounded())
+        if (player.isAlive)
         {
-            //vector 2 as we are 2dimensional 
-            playerBox.velocity += new Vector2(playerBox.velocity.x, jumpHeight);
+            if (value.isPressed && IsGrounded())
+            {
+                //vector 2 as we are 2dimensional 
+                playerBox.velocity += new Vector2(playerBox.velocity.x, jumpHeight);
 
+            }
         }
     }
 
     void ClimbLadder()
     {
-        if (!coll.IsTouchingLayers(LayerMask.GetMask("Ladder"))) 
+        if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder"))) 
         {
             playerBox.gravityScale = gravityAtStart;
             isClimbing = false;
@@ -134,13 +141,18 @@ public class PlayerMovement : MonoBehaviour
         //sets the state to the correct number so that the animator controller can pick up the change. ENUM's can be converted to int values using the (int)ENUM argument. so that each enum value gets converted to a digit, starting at 0. (like an array)
         playerAnim.SetInteger("moveState", (int)state);
     }
-
-    /// <summary>
-    /// Going to use this method to call a raycast to the ground to make sure we are on the ground before trying top jump.
-    /// </summary>
-    /// <returns></returns>
+        
    private bool IsGrounded()
     {
-       return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
-    } 
+        return (myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")));
+       //return Physics2D.BoxCast(myBody.bounds.center, myBody.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       if(collision.gameObject.tag == "Enemy")
+        {
+            player.killPlayer();
+        }
+    }
 }
