@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 2539341859417305073}
   - component: {fileID: 2539341859417305079}
   - component: {fileID: 2539341859417305069}
-  - component: {fileID: 7817246635122126064}
   - component: {fileID: 2539341859417305068}
   - component: {fileID: 2539341859417305075}
   - component: {fileID: 2539341859417305070}
   - component: {fileID: 1848179312}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -79,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 0
   m_Sprite: {fileID: -6367560908665664636, guid: d348dff3819df794186a80cb95777629, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,39 +120,13 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2539341859417305078}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: d43e0291e6866ba4eaa352c8d79d8944, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.029328665, y: -0.24701993}
-  m_Size: {x: 1.1185913, y: 1.411816}
-  m_Direction: 0
---- !u!61 &7817246635122126064
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2539341859417305078}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.024423763, y: -0.89914}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8747164, y: 0.2018199}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.04209205, y: -0.24701989}
+  m_Size: {x: 1.0079772, y: 1.411816}
+  m_Direction: 0
 --- !u!95 &2539341859417305068
 Animator:
   serializedVersion: 4
@@ -188,7 +161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 12
   runSpeed: 8
-  climbSpeed: 5
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64
