@@ -6,21 +6,22 @@ public class Player : MonoBehaviour
 {
     //This serves as a skeleton for the player class.
     
-    int lives = 0; //how many times player can die.
+    [SerializeField]int lives = 0; //how many times player can die.
        
-    int hearts = 0; //how many times player can be hit
+    [SerializeField]int maxHearts = 2; //how many times player can be hit
 
     int score = 0; //will be linked to enemy kills
 
+    public int heartsLeft = 0;
     //TODO implement "weapons" or rather the spray gun thingy.
 
-    public bool isAlive = true;
-
+    public bool isAlive = true;   
 
 
     void Start()
     {
         isAlive = true;
+        heartsLeft = maxHearts;
     }
 
     
@@ -28,12 +29,16 @@ public class Player : MonoBehaviour
     {
         if (!isAlive)
         {
-            killPlayer();
+            KillPlayer();
         }
     }
 
-    public void killPlayer()
+    public void KillPlayer()
     {
         isAlive = false;
+        Destroy(gameObject, 1f);
     }
+
+   
+    
 }

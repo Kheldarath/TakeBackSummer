@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 7f;
     [SerializeField] private float climbSpeed = 5f;
     [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private Vector2 kickback = new Vector2(10f,10f);
 
     private Player player;
     private Rigidbody2D playerBox;
@@ -152,7 +153,25 @@ public class PlayerMovement : MonoBehaviour
     {
        if(collision.gameObject.tag == "Enemy")
         {
-            player.killPlayer();
+            
+            HurtPlayer();
+            //state = MOVESTATE.idle;
+            UpdateAnim();
         }
+    }
+
+    public void HurtPlayer()
+    {
+        playerBox.velocity = kickback;
+        player.heartsLeft--;
+           
+        if(player.heartsLeft <= 0)
+        {
+            playerAnim.SetTrigger("PlayerDied");
+            player.KillPlayer();
+            
+        }
+
+        playerAnim.SetTrigger("PlayerHit");
     }
 }
