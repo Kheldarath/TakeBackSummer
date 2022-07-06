@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2539341859417305075}
   - component: {fileID: 2539341859417305070}
   - component: {fileID: 1848179312}
+  - component: {fileID: 5712915093455472531}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -34,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 2539341859417305078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.1813, y: 0.1454, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: -1479774331
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6367560908665664636, guid: d348dff3819df794186a80cb95777629, type: 3}
+  m_Sprite: {fileID: -187732165, guid: a8b5d8f836233bf44940948c00ee96ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,8 +127,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.043114983, y: -0.26376852}
-  m_Size: {x: 1.2007027, y: 1.4453132}
+  m_Offset: {x: 0.007953763, y: 0.024971128}
+  m_Size: {x: 1.1303804, y: 2.914776}
   m_Direction: 0
 --- !u!61 &1714834122283856584
 BoxCollider2D:
@@ -142,18 +143,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.020151302, y: -0.94488484}
+  m_Offset: {x: 0.03968525, y: -1.3988724}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1.7503324, y: 3.25}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9280853, y: 0.113337874}
+  m_Size: {x: 1.0452881, y: 0.18036461}
   m_EdgeRadius: 0
 --- !u!95 &2539341859417305068
 Animator:
@@ -191,6 +192,7 @@ MonoBehaviour:
   maxHearts: 2
   heartsLeft: 0
   isAlive: 1
+  hasSword: 0
 --- !u!114 &2539341859417305075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,13 +205,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4671542a8041a4c8b3cc6cbc241189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 12
+  jumpHeight: 13
   runSpeed: 8
   climbSpeed: 5
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64
-  kickback: {x: 10, y: 10}
+  kickback: {x: 15, y: 15}
 --- !u!114 &2539341859417305070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,3 +255,15 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5712915093455472531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2539341859417305078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a26ef4516b8bb46be35375c271b0d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

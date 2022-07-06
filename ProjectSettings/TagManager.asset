@@ -8,6 +8,7 @@ TagManager:
   - WaterHazard
   - Enemy
   - PatrolTrigger
+  - PowerUp
   layers:
   - Default
   - TransparentFX

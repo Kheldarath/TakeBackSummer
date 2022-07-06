@@ -15,12 +15,14 @@ public class Player : MonoBehaviour
     public int heartsLeft = 0;
     //TODO implement "weapons" or rather the spray gun thingy.
 
-    public bool isAlive = true;   
+    public bool isAlive = true;
+    public bool hasSword = false;
 
 
     void Start()
     {
         isAlive = true;
+        hasSword = false;
         heartsLeft = maxHearts;
     }
 

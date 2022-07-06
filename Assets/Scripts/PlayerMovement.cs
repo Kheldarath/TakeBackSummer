@@ -110,6 +110,15 @@ public class PlayerMovement : MonoBehaviour
     {
         MOVESTATE state;
 
+        if (player.hasSword)
+        {
+            playerAnim.SetBool("HasSword", true);
+        }
+        else
+        {
+            playerAnim.SetBool("HasSword", false);
+        }
+
         if (playerBox.velocity.x > 0f)
         {
             state = MOVESTATE.running;
@@ -167,9 +176,10 @@ public class PlayerMovement : MonoBehaviour
            
         if(player.heartsLeft <= 0)
         {
-            playerAnim.SetTrigger("PlayerDied");
+            playerAnim.SetTrigger("PlayerDied");            
             player.KillPlayer();
-            
+            playerBox.velocity = kickback;
+
         }
 
         playerAnim.SetTrigger("PlayerHit");
