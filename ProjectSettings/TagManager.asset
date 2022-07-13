@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - PatrolTrigger
   - PowerUp
+  - Trap
+  - PlayerShot
+  - Scenery
   layers:
   - Default
   - TransparentFX
@@ -22,8 +25,8 @@ TagManager:
   - Background
   - Bouncing
   - Enemies
-  - 
-  - 
+  - Hazards
+  - Bullets
   - 
   - 
   - 
@@ -54,6 +57,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Hazards
+    uniqueID: 148346013
     locked: 0
   - name: Enemies
     uniqueID: 532850549

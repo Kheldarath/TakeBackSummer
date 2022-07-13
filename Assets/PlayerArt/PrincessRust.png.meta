@@ -4474,7 +4474,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PrincessRust_12: -1859087483
+      PrincessRust_174: -193336526
       PrincessRust_131: -1178074248
       PrincessRust_73: -1004337869
       PrincessRust_127: 855676038
@@ -4675,7 +4675,7 @@ TextureImporter:
       PrincessRust_5: 2080360082
       PrincessRust_196: -400091656
       PrincessRust_192: 222296917
-      PrincessRust_174: -193336526
+      PrincessRust_12: -1859087483
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

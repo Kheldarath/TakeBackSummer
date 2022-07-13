@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 moveInput;
 
+    [SerializeField] private GameObject swordShot;
+    [SerializeField] private Transform shotSpawn;
     [SerializeField] private float jumpHeight = 14f;
     [SerializeField] private float runSpeed = 7f;
     [SerializeField] private float climbSpeed = 5f;
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 x_playerMovement, y_playerMovement;
 
     private float dirx = 0f;
+    public float breath = 1f;
     private bool isClimbing = false;    
     private float gravityAtStart;
 
@@ -39,16 +42,13 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<Player>();
         playerBox = GetComponent<Rigidbody2D>();
         myBody = GetComponent<CapsuleCollider2D>();
-        myFeet = GetComponent<BoxCollider2D>();
+        myFeet = GetComponent<BoxCollider2D>();        
         sprite = GetComponent<SpriteRenderer>();
     }
     void Start()
-    {
-        //playerBox = GetComponent<Rigidbody2D>();
-        //coll = GetComponent<Collider2D>();
-        //sprite = GetComponent<SpriteRenderer>();
+    {       
         playerAnim = GetComponent<Animator>();
-        gravityAtStart = playerBox.gravityScale;
+        gravityAtStart = playerBox.gravityScale;        
     }
 
     
@@ -60,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
             ClimbLadder();
             UpdateAnim();
         }
+    }
+
+    void OnFire(InputValue value)
+    {
+        if (!player.isAlive) { return; }
+        playerAnim.SetTrigger("Firing");
     }
 
     void OnMove(InputValue value)
@@ -80,8 +86,12 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-    }
+    }       
 
+    void FireShot()
+    {
+        Instantiate(swordShot, shotSpawn.position, transform.rotation);
+    }
     void ClimbLadder()
     {
         if (!myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder"))) 
@@ -161,12 +171,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
        if(collision.gameObject.tag == "Enemy")
-        {
-            
+        {            
             HurtPlayer();
             //state = MOVESTATE.idle;
             UpdateAnim();
         }
+
+       if(collision.gameObject.tag == "Trap")
+        {
+            playerAnim.SetTrigger("PlayerDied");
+            player.KillPlayer();
+        }       
     }
 
     public void HurtPlayer()
@@ -184,4 +199,6 @@ public class PlayerMovement : MonoBehaviour
 
         playerAnim.SetTrigger("PlayerHit");
     }
+
+    
 }

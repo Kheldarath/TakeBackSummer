@@ -29,11 +29,15 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        Animator CollectAnim;
+
         if (coll.gameObject.tag == "Collectable")
         {
+            CollectAnim = coll.gameObject.GetComponent<Animator>();
             //add to pickup counter etc
             collected += 1;
-            Destroy(coll.gameObject);
+            CollectAnim.SetTrigger("OnPickup");
+            Destroy(coll.gameObject, 0.6f);
             Debug.Log($"You got a {coll.gameObject.name} nice one!");
             scoredisplay.text = $"Collected: {collected} ";
         }

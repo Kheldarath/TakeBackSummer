@@ -5,15 +5,18 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1f;
-
+    [SerializeField] int maxHits;
     [SerializeField] Patrol myPatrol;
-        
+
+    int hitsLeft;
+
     bool goingLeft = false;
-    bool goingRight = false;
+    bool goingRight = false;    
     
     Rigidbody2D myRigidbody;
     SpriteRenderer mySprite;
     BoxCollider2D myBox;
+    Animator myAnim;
 
 
 
@@ -22,7 +25,9 @@ public class EnemyMovement : MonoBehaviour
     {
         myBox = GetComponent<BoxCollider2D>();
         mySprite = GetComponent<SpriteRenderer>();
-        myRigidbody = GetComponent<Rigidbody2D>();        
+        myRigidbody = GetComponent<Rigidbody2D>();
+        myAnim = GetComponent<Animator>();
+        hitsLeft = maxHits;
     }
 
   
@@ -46,5 +51,17 @@ public class EnemyMovement : MonoBehaviour
     void FlipSpriteFacing()
     {
         transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x), gameObject.transform.localScale.y);
+    }
+
+    void HurtMe()
+    {
+        hitsLeft--;
+        myAnim.SetTrigger("GotHit");
+       
+        if(hitsLeft <= 0)
+        {
+            myAnim.SetTrigger("GotKilled");
+            Destroy(gameObject, 1f);
+        }
     }
 }
