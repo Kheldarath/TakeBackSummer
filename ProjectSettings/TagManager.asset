@@ -12,6 +12,8 @@ TagManager:
   - Trap
   - PlayerShot
   - Scenery
+  - LevelStart
+  - LevelEnd
   layers:
   - Default
   - TransparentFX

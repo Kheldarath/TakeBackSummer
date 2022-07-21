@@ -33,12 +33,13 @@ public class ItemPickup : MonoBehaviour
 
         if (coll.gameObject.tag == "Collectable")
         {
+            coll.gameObject.tag = "Untagged";
             CollectAnim = coll.gameObject.GetComponent<Animator>();
             //add to pickup counter etc
             collected += 1;
-            CollectAnim.SetTrigger("OnPickup");
-            Destroy(coll.gameObject, 0.6f);
+            CollectAnim.SetTrigger("OnPickup");            
             Debug.Log($"You got a {coll.gameObject.name} nice one!");
+            Destroy(coll.gameObject, 0.55f);
             scoredisplay.text = $"Collected: {collected} ";
         }
     }

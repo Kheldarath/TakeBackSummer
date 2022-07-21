@@ -33,7 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float dirx = 0f;
     public float breath = 1f;
-    private bool isClimbing = false;    
+    private bool isClimbing = false;
+    public bool cantMove = false;
     private float gravityAtStart;
 
 
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     
     void OnJump(InputValue value)
     {
-        //if(!coll.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
+        if (cantMove) { return; }
         if (player.isAlive)
         {
             if (value.isPressed && IsGrounded())
@@ -108,8 +109,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void Run()
     {
-        x_playerMovement = new Vector2(moveInput.x * runSpeed, playerBox.velocity.y);
-        playerBox.velocity = x_playerMovement; 
+        if (!cantMove)
+        {
+            x_playerMovement = new Vector2(moveInput.x * runSpeed, playerBox.velocity.y);
+            playerBox.velocity = x_playerMovement;
+        }
     }
 
     /// <summary>
@@ -164,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
         
    private bool IsGrounded()
     {
-        return (myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")));
+        return (myFeet.IsTouchingLayers(LayerMask.GetMask("Ground")) || myFeet.IsTouchingLayers(LayerMask.GetMask("Ladder")));
        //return Physics2D.BoxCast(myBody.bounds.center, myBody.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
@@ -182,6 +186,15 @@ public class PlayerMovement : MonoBehaviour
             playerAnim.SetTrigger("PlayerDied");
             player.KillPlayer();
         }       
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "LevelEnd")
+        {
+            playerAnim.SetTrigger("LevelComplete");
+            cantMove = true;
+        }
     }
 
     public void HurtPlayer()
